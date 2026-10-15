@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8eee8">
+<title>Приглашение на день рождения</title>
+<style>
+:root{--cream:#fff8f1;--rose:#d98e91;--pink:#f4d8d5;--wine:#783f4b;--gold:#c6a56a;--ink:#543b3d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Georgia,'Times New Roman',serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:radial-gradient(#c6a56a .7px,transparent .7px);background-size:19px 19px;z-index:-1}
+button,a{font:inherit}
+button{cursor:pointer}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:30px 18px;text-align:center;position:relative;overflow:hidden}
+.eyebrow{font:600 11px/1.4 Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--wine);margin-bottom:25px}
+h1{font-size:clamp(2.4rem,8vw,5.5rem);font-weight:400;line-height:1.02;margin:0 0 16px;color:var(--wine)}
+.subtitle{font-size:clamp(1rem,3vw,1.25rem);font-style:italic;margin:0 0 35px;color:#87676a}
+.envelope-wrap{width:min(330px,82vw);height:220px;position:relative;margin:5px auto 25px;perspective:900px;filter:drop-shadow(0 18px 22px #783f4b1c)}
+.envelope{position:absolute;inset:25px 0 0;background:#e8b9b5;border-radius:5px;overflow:hidden}
+.envelope:before{content:"";position:absolute;inset:0;background:linear-gradient(140deg,#f5d8d2,#d99599)}
+.flap{position:absolute;top:25px;left:0;width:100%;height:150px;background:#f3d3ce;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s cubic-bezier(.2,.75,.25,1);z-index:4}
+.envelope-front{position:absolute;inset:25px 0 0;z-index:5;background:linear-gradient(35deg,#d88f95 0 49.5%,transparent 50%),linear-gradient(-35deg,#e9b2b0 0 49.5%,transparent 50%);clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%)}
+.letter{position:absolute;left:8%;width:84%;height:155px;top:43px;background:#fffaf4;border:1px solid #e9d4c5;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:transform .9s .2s;box-shadow:0 2px 12px #783f4b13}
+.letter strong{font-size:1.45rem;font-weight:400;color:var(--wine)}
+.letter span{font-size:.9rem;margin-top:9px;font-style:italic}
+.envelope-wrap.open .flap{transform:rotateX(180deg);z-index:1}
+.envelope-wrap.open .letter{transform:translateY(-92px)}
+.seal{position:absolute;z-index:6;top:112px;left:calc(50% - 23px);width:46px;height:46px;border-radius:50%;background:var(--wine);color:#fff1e8;display:grid;place-items:center;font-size:23px;box-shadow:0 3px 8px #783f4b38;transition:opacity .3s}
+.open .seal{opacity:0}
+.primary,.secondary{border:0;border-radius:999px;padding:15px 27px;transition:transform .2s,box-shadow .2s;background:var(--wine);color:#fff8f1;box-shadow:0 8px 18px #783f4b22}
+.primary:hover,.secondary:hover{transform:translateY(-2px);box-shadow:0 11px 22px #783f4b30}
+.hint{font:12px Arial,sans-serif;letter-spacing:.06em;color:#98777a}
+section{padding:78px 20px;text-align:center}
+.invite{display:none;animation:appear .9s ease both}
+.invite.visible{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.section-label{font:600 10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.25em;color:var(--gold)}
+h2{font-size:clamp(2rem,6vw,3.6rem);font-weight:400;line-height:1.12;color:var(--wine);margin:15px 0}
+.intro{font-size:1.15rem;line-height:1.8;max-width:600px;margin:18px auto 0}
+.divider{width:70px;height:1px;background:var(--gold);margin:27px auto}
+.details{background:#f5e5df}
+.detail-grid{max-width:850px;margin:36px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.detail-card{padding:27px 16px;border:1px solid #e4c9c0;background:#fff8f1b8;border-radius:5px}
+.icon{font-size:25px;margin-bottom:12px}
+.detail-card h3{font-size:1.1rem;font-weight:400;color:var(--wine);margin:0 0 10px}
+.detail-card p{margin:0;line-height:1.6;font-size:1rem}
+.countdown{display:flex;justify-content:center;gap:clamp(10px,3vw,28px);margin:30px auto}
+.time-box{min-width:62px}
+.time-box strong{display:block;font-size:clamp(1.8rem,6vw,3rem);font-weight:400;color:var(--wine)}
+.time-box span{font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.15em;color:#98777a}
+.rsvp{background:#fff8f1}
+#rsvpMessage{min-height:25px;margin-top:20px;color:var(--wine);font-style:italic}
+.map-link{display:inline-block;margin-top:20px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:5px}
+footer{padding:55px 20px 65px;text-align:center;background:#f5e5df}
+footer h2{font-size:clamp(2rem,7vw,3.7rem);font-style:italic}
+footer p{font:11px Arial,sans-serif;letter-spacing:.18em;color:#98777a}
+.sparkle{position:absolute;color:#c6a56a;animation:float 4s ease-in-out infinite;pointer-events:none}
+.s1{top:18%;left:12%;font-size:24px}.s2{top:28%;right:12%;font-size:17px;animation-delay:1s}.s3{bottom:17%;left:17%;font-size:15px;animation-delay:2s}.s4{bottom:20%;right:15%;font-size:22px;animation-delay:.5s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0);opacity:.55}50%{transform:translateY(-12px) rotate(15deg);opacity:1}}
+@media(max-width:650px){.detail-grid{grid-template-columns:1fr;max-width:360px}.detail-card{padding:22px}.hero{min-height:95svh}.envelope-wrap{height:205px}.s1{left:5%}.s2{right:5%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main>
+<section class="hero" id="home">
+  <span class="sparkle s1">✧</span><span class="sparkle s2">✦</span><span class="sparkle s3">✧</span><span class="sparkle s4">✦</span>
+  <div class="eyebrow">особенное приглашение</div>
+  <h1>У меня<br>день рождения!</h1>
+  <p class="subtitle">И я очень хочу разделить этот день с тобой</p>
+  <div class="envelope-wrap" id="envelope" aria-label="Закрытый конверт">
+    <div class="envelope"></div>
+    <div class="letter"><strong>Для тебя 💌</strong><span>с любовью и радостью</span></div>
+    <div class="flap"></div><div class="envelope-front"></div><div class="seal">♥</div>
+  </div>
+  <button class="primary" id="openInvite">Открыть приглашение</button>
+  <p class="hint">нажми, чтобы узнать детали</p>
+</section>
+<div class="invite" id="inviteContent">
+  <section>
+    <div class="section-label">ты приглашён(а)</div>
+    <h2>На мой день<br>рождения! ♡</h2>
+    <div class="divider"></div>
+    <p class="intro">Будет очень здорово провести этот день вместе — поболтать, посмеяться и создать новые тёплые воспоминания. Очень надеюсь, что ты сможешь прийти!</p>
+  </section>
+  <section class="details" id="details">
+    <div class="section-label">сохрани дату</div><h2>Когда и где?</h2>
+    <div class="detail-grid">
+      <article class="detail-card"><div class="icon">♡</div><h3>Дата</h3><p id="dateText">8 июля</p></article>
+      <article class="detail-card"><div class="icon">✧</div><h3>Время</h3><p>15:00</p></article>
+      <article class="detail-card"><div class="icon">⌖</div><h3>Место</h3><p id="addressText">Адрес будет добавлен позже</p></article>
+    </div>
+    <div class="divider"></div><div class="section-label">до встречи осталось</div>
+    <div class="countdown" aria-live="polite">
+      <div class="time-box"><strong id="days">—</strong><span>дней</span></div>
+      <div class="time-box"><strong id="hours">—</strong><span>часов</span></div>
+      <div class="time-box"><strong id="minutes">—</strong><span>минут</span></div>
+      <div class="time-box"><strong id="seconds">—</strong><span>секунд</span></div>
+    </div>
+  </section>
+  <section class="rsvp">
+    <div class="section-label">дай знать</div><h2>Ты будешь?</h2>
+    <p class="intro">Нажми на кнопку, чтобы подтвердить, что придёшь.</p>
+    <button class="primary" id="rsvpButton">Я приду! ❤️</button>
+    <p id="rsvpMessage" role="status"></p>
+    <a class="map-link" id="mapLink" href="#" target="_blank" rel="noopener" hidden>Как добраться ↗</a>
+  </section>
+  <footer><h2>Буду очень<br>ждать тебя! ❤️</h2><p>ДО СКОРОЙ ВСТРЕЧИ</p></footer>
+</div>
+</main>
+<script>
+/* ИЗМЕНИ ДАННЫЕ НИЖЕ ПОД СВОЙ ПРАЗДНИК */
+const CONFIG = {
+  birthdayName: "мой день рождения",
+  date: "2027-07-08", // год-месяц-день; для ближайшего будущего праздника укажи нужный год
+  time: "15:00",
+  address: "", // например: "ул. Примерная, 10"
+  mapUrl: "" // вставь ссылку на карту, если она есть
+};
+
+const envelope = document.getElementById("envelope");
+const openButton = document.getElementById("openInvite");
+const inviteContent = document.getElementById("inviteContent");
+
+openButton.addEventListener("click", () => {
+  envelope.classList.add("open");
+  openButton.textContent = "Приглашение открыто ✓";
+  openButton.disabled = true;
+  inviteContent.classList.add("visible");
+  setTimeout(() => document.getElementById("details").scrollIntoView({behavior:"smooth"}), 450);
+});
+
+if (CONFIG.address.trim()) document.getElementById("addressText").textContent = CONFIG.address;
+if (CONFIG.mapUrl.trim()) {
+  const map = document.getElementById("mapLink");
+  map.href = CONFIG.mapUrl;
+  map.hidden = false;
+}
+
+function getPartyDate() {
+  const [year, month, day] = CONFIG.date.split("-").map(Number);
+  const [hour, minute] = CONFIG.time.split(":").map(Number);
+  return new Date(year, month - 1, day, hour, minute, 0);
+}
+function updateCountdown() {
+  const now = new Date();
+  let target = getPartyDate();
+  // Если заданная дата уже прошла, ищем следующий год с тем же месяцем и днём.
+  if (target <= now) {
+    const [year, month, day] = CONFIG.date.split("-").map(Number);
+    target = new Date(now.getFullYear() + 1, month - 1, day, ...CONFIG.time.split(":").map(Number), 0);
+  }
+  const diff = Math.max(0, target - now);
+  document.getElementById("days").textContent = Math.floor(diff / 86400000);
+  document.getElementById("hours").textContent = Math.floor(diff / 3600000) % 24;
+  document.getElementById("minutes").textContent = Math.floor(diff / 60000) % 60;
+  document.getElementById("seconds").textContent = Math.floor(diff / 1000) % 60;
+}
+const date = getPartyDate();
+document.getElementById("dateText").textContent = date.toLocaleDateString("ru-RU", {day:"numeric", month:"long"});
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Демонстрационное подтверждение работает только в этом браузере и на этом устройстве.
+document.getElementById("rsvpButton").addEventListener("click", () => {
+  document.getElementById("rsvpMessage").textContent =
+    "Ура! ❤️ Спасибо за ответ — он отмечен только в этом браузере.";
+  document.getElementById("rsvpButton").textContent = "Ты подтвердил(а) присутствие ✓";
+  document.getElementById("rsvpButton").disabled = true;
+});
+</script>
+</body>
+</html>
